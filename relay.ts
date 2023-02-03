@@ -155,7 +155,11 @@ export function relayInit(
 
   async function connect(): Promise<void> {
     if (ws?.readyState && ws.readyState === 1) return // ws already open
-    await connectRelay()
+    try {
+      await connectRelay()
+    } catch (err) {
+      console.log('hacky fix to catch connectRelay err: '+err);
+    }
   }
 
   async function trySend(params: [string, ...any]) {
