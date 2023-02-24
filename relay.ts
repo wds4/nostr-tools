@@ -169,7 +169,11 @@ export function relayInit(url: string): Relay {
 
   async function connect(): Promise<void> {
     if (connected()) return // ws already open
-    await connectRelay()
+    try {
+      await connectRelay()
+    } catch (err) {
+      console.log(err) 
+    }
   }
 
   async function trySend(params: [string, ...any]) {
